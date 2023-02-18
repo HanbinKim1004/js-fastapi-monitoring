@@ -3,7 +3,7 @@ import numpy as np
 from fastapi import FastAPI, Response
 from joblib import load
 from .schemas import Wine, Rating, feature_names
-# from .monitoring import instrumentator
+from .monitoring import instrumentator
 
 ROOT_DIR = Path(__file__).parent.parent
 
@@ -30,3 +30,5 @@ def predict(response: Response, sample: Wine):
 @app.get("/healthcheck")
 def healthcheck():
     return {"status": "ok"}
+
+instrumentator.instrument(app).expose(app, include_in_schema=False, should_gzip=True)
