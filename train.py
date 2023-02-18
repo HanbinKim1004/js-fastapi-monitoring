@@ -5,11 +5,12 @@ import pandas as pd
 from joblib import dump
 from sklearn import preprocessing
 from sklearn.experimental import enable_hist_gradient_boosting  # noqa
-from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressorfrom sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
 logger = logging.getLogger(__name__)
+
+model = RandomForestRegressor(max_depth=30).fit(X_train, y_train)
 
 def prepare_dataset(test_size=0.2, random_seed=1):
     dataset = pd.read_csv(
